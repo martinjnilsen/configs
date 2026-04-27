@@ -1,3 +1,15 @@
 {
-  "accentColor": "#ce5050"
+  "accentColor": "#ffffff",
+  "cssTheme": "Minimal",
+  "theme": "system",
+  "showViewHeader": true,
+  "enabledCssSnippets": [
+    "accent"
+  ],
+  "translucency": true,
+  "nativeMenus": true,
+  "textFontFamily": "Avenir",
+  "showRibbon": true,
+  "interfaceFontFamily": "Avenir",
+  "baseFontSizeAction": true
 }

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# hooks/pre-commit — cleaning rules applied before every commit.
+#
+# Install once:
+#   ln -sf ../../hooks/pre-commit .git/hooks/pre-commit
+
+set -euo pipefail
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Returns 0 if the given repo-relative path is staged for commit.
+is_staged() { git diff --cached --name-only | grep -qF "$1"; }
+
+# Edits a JSON file in-place using a jq filter.
+jq_inplace() {
+  local file="$1" filter="$2"
+  jq "$filter" "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+}
+
+# ── obsidian ──────────────────────────────────────────────────────────────────
+
+if is_staged "obsidian/workspace.json"; then
+  jq_inplace "$REPO_ROOT/obsidian/workspace.json" '
+    .lastOpenFiles = []
+    | .active = null
+    | walk(
+        if type == "object" and .type == "tabs" then
+          .children = []
+        elif type == "object" and .type == "leaf" and .state.state.file? then
+          .state.state.file = null
+          | .state.title = null
+          | .state.icon = null
+        else . end
+      )
+  '
+  git add "$REPO_ROOT/obsidian/workspace.json"
+  echo "pre-commit: cleaned obsidian/workspace.json (.lastOpenFiles, .active, leaf file refs, tabs children)"
+fi

@@ -5,8 +5,7 @@
   "hideBottomStatusBarIndicatorText": true,
   "enableCompatQuickExplorer": false,
   "attachmentFolderNames": [
-    "attachments",
-    "templates",
-    "media"
+    "_templates",
+    "_media"
   ]
 }

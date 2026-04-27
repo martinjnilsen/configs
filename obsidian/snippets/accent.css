@@ -1,0 +1,25 @@
+body.theme-light {
+  --accent-h: 0 !important;
+  --accent-s: 0% !important;
+  --accent-l: 0% !important;
+
+  --color-accent: #000000 !important;
+  --color-accent-hsl: 0, 0%, 0% !important;
+  --interactive-accent: #000000 !important;
+  --interactive-accent-hover: #222222 !important;
+  --text-on-accent: #ffffff !important;
+  --text-accent: #000000 !important;
+}
+
+body.theme-dark {
+  --accent-h: 0 !important;
+  --accent-s: 0% !important;
+  --accent-l: 100% !important;
+
+  --color-accent: #ffffff !important;
+  --color-accent-hsl: 0, 0%, 100% !important;
+  --interactive-accent: #ffffff !important;
+  --interactive-accent-hover: #dddddd !important;
+  --text-on-accent: #000000 !important;
+  --text-accent: #ffffff !important;
+}

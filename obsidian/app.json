@@ -1,7 +1,8 @@
 {
   "promptDelete": false,
-  "attachmentFolderPath": "/media",
+  "attachmentFolderPath": "_media",
   "newFileLocation": "folder",
-  "newFileFolderPath": "/uncategorized",
-  "openBehavior": "daily"
+  "newFileFolderPath": "_inbox",
+  "openBehavior": "daily",
+  "showInlineTitle": true
 }
