@@ -3,53 +3,98 @@
 Every Obsidian vault stores its settings in a `.obsidian` folder at the root of the vault. The contents of this directory can be replaced with the files in the config repository to apply a consistent base configuration to any vault.
 
 ## Table of Contents
-- [Usage](#usage)
-- [Post‑setup](#post-setup)
-- [Set custom app icon](#set-custom-app-icon)
+- [Create vault](#create-vault)
+- [Fresh machine setup](#fresh-machine-setup)
+- [Run setup script](#run-setup-script)
 - [Notes](#notes)
 
-## Usage
-### Automatic (recommended)
-Run this from the root of an existing Obsidian vault. It checks that `.obsidian` exists, sparse-checks out only the `obsidian` folder from the repository, copies it into the vault, and removes the temporary clone.
+## Create vault
+1. Open Obsidian.
+2. In the vault manager:
+   - **First time**: the vault manager opens automatically on launch. Click **Create new vault**.
+   - **Existing setup**: click the current vault name → **Manage Vaults...** → **Create new vault**.
+3. Enter a vault name and **choose a location** (Obsidian will create the folder, no need to create it first).
+4. Click **Create**.
+
+## Fresh machine setup
+These steps are **system-wide** and only need to be done once per machine, regardless of how many vaults you create.
+
+### Enable CLI
+The setup script uses the [Obsidian CLI](https://obsidian.md/cli), which requires Obsidian 1.12.7 or later.
+
+1. Open **Settings → General**.
+2. Enable **Command line interface**.
+3. Follow the on-screen prompt to register the CLI in your system PATH.
+4. Restart your terminal for the PATH change to take effect.
+5. Verify the CLI works:
+   ```sh
+   obsidian help
+   ```
+
+> **Note:** The Obsidian app must be running for CLI commands to work.
+
+### Set custom app icon
+1. Download the [app icon](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/appicon.png) to your Downloads folder:
+   ```sh
+   curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/appicon.png" -o ~/Downloads/appicon.png
+   ```
+2. Open **Settings → Appearance → Advanced**.
+3. Under **Custom app icon**, click **Choose**.
+4. Select `appicon.png` from your Downloads folder via the file picker.
+5. Click **Relaunch**.
+
+## Run setup script
+
+The script does the following, in order:
+
+1. Disables restricted mode so community plugins can be installed.
+2. Fetches the plugin list from [`obsidian/community-plugins.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/community-plugins.json) and installs and enables each plugin.
+3. Applies the config template by merging the `obsidian` folder from the config repository into your vault's `.obsidian` folder. Existing files not covered by the template are left untouched.
+4. Creates the standard vault folders defined in [`obsidian/config/vault-folders.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/vault-folders.json).
+5. Reloads Obsidian.
+
+Run this from the root of your vault:
 
 ```sh
-[ -d .obsidian ] || { echo "Error: .obsidian folder not found. Run this from an Obsidian vault root."; exit 1; }; git clone --depth=1 --filter=tree:0 --no-checkout https://github.com/martinjnilsen/configs.git obsidian-vault-template && cd obsidian-vault-template && git sparse-checkout set obsidian && git checkout main && cp -r obsidian/. ../.obsidian/ && cd .. && rm -rf obsidian-vault-template
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash
 ```
 
-### Step-by-step
-If preferred, clone the repository and copy the `obsidian` folder into the vault's `.obsidian` directory manually.
+<details>
+<summary>More options — dry run, help, and manual inspection</summary>
+
+**Preview what the script will do without making any changes:**
 
 ```sh
-# Check that we're in a vault root by verifying the presence of the .obsidian folder
-[ -d .obsidian ] || { echo "Error: .obsidian folder not found. Run this from an Obsidian vault root."; exit 1; }
-
-# Clone the repository (or download and extract the ZIP) to a temporary location
-git clone https://github.com/martinjnilsen/configs.git obsidian-vault-template
-
-# Copy the `obsidian` folder from the temporary clone to the vault's `.obsidian` directory
-cp -r obsidian-vault-template/obsidian/. .obsidian/
-
-# Remove the temporary clone
-rm -rf obsidian-vault-template
+# Shows each step that would be taken, without applying anything
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash -s -- --dry-run
 ```
 
-## Post‑setup
-1. Open Obsidian → **Settings → Community plugins → Turn off restricted mode** (if not already).
-2. **Reload Obsidian** (`Cmd/Ctrl + R`) or restart the app.
-3. Go to **Community plugins → Check for updates** and **Enable** any plugins that appear as "installed but disabled".
-4. **Reload again** (`Cmd/Ctrl + R`) to fully activate all plugins and refresh the ribbon.
+**Print the help message:**
 
-The vault will then use the persisted settings from the Git repository for themes, plugins, snippets, and other vault‑level configuration.
+```sh
+# Lists all available flags and usage instructions
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash -s -- help
+```
 
-## Set custom app icon
-The app icon choice is stored as an application‑level setting, not as a vault‑local file, so it must be selected again on a new machine.
+**Download and inspect the script before running it:**
 
-To set the app icon:
+```sh
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" -o setup.sh
+# Review setup.sh, then run with any flags:
+bash setup.sh             # normal run
+bash setup.sh --dry-run   # preview only
+bash setup.sh --verbose   # print every step
+bash setup.sh --debug     # print debug output
+bash setup.sh help        # show help
+```
 
-1. Open **Settings → Appearance → Advanced**.
-2. Under **Custom app icon**, click **Choose**.
-3. Select `.obsidian/appicon.png` via the file picker.
-4. Click **Relaunch**.
+> **What does `bash -s -- <args>` mean?**
+>
+> - `-s` tells bash to read the script from stdin (the pipe) rather than a file.
+> - `--` marks the end of bash's own options — everything after it is passed as arguments to the script itself.
+> - Without `--`, a flag like `--dry-run` could be misinterpreted as a bash option rather than a script argument.
+
+</details>
 
 ## Notes
 > The `.obsidian` folder is hidden in macOS by default. Use `Cmd+Shift+.` in Finder or `ls -a` in the terminal to see it.
