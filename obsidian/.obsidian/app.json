@@ -4,5 +4,6 @@
   "newFileLocation": "folder",
   "newFileFolderPath": "_inbox",
   "openBehavior": "daily",
-  "showInlineTitle": true
+  "showInlineTitle": true,
+  "alwaysUpdateLinks": true
 }

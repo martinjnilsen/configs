@@ -34,9 +34,9 @@ The setup script uses the [Obsidian CLI](https://obsidian.md/cli), which require
 > **Note:** The Obsidian app must be running for CLI commands to work.
 
 ### Set custom app icon
-1. Download the [app icon](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/appicon.png) to your Downloads folder:
+1. Download the [app icon](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/appicon.png) to your Downloads folder:
    ```sh
-   curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/appicon.png" -o ~/Downloads/appicon.png
+   curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/appicon.png" -o ~/Downloads/appicon.png
    ```
 2. Open **Settings → Appearance → Advanced**.
 3. Under **Custom app icon**, click **Choose**.
@@ -48,15 +48,15 @@ The setup script uses the [Obsidian CLI](https://obsidian.md/cli), which require
 The script does the following, in order:
 
 1. Disables restricted mode so community plugins can be installed.
-2. Fetches the plugin list from [`obsidian/community-plugins.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/community-plugins.json) and installs and enables each plugin.
+2. Fetches the plugin list from [`obsidian/.obsidian/community-plugins.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/.obsidian/community-plugins.json) and installs and enables each plugin.
 3. Applies the config template by merging the `obsidian` folder from the config repository into your vault's `.obsidian` folder. Existing files not covered by the template are left untouched.
-4. Creates the standard vault folders defined in [`obsidian/config/vault-folders.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/vault-folders.json).
+4. Creates the standard vault folders defined in [`obsidian/vault-folders.json`](https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/vault-folders.json).
 5. Reloads Obsidian.
 
 Run this from the root of your vault:
 
 ```sh
-curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/setup.sh" | bash
 ```
 
 <details>
@@ -66,20 +66,20 @@ curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidia
 
 ```sh
 # Shows each step that would be taken, without applying anything
-curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash -s -- --dry-run
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/setup.sh" | bash -s -- --dry-run
 ```
 
 **Print the help message:**
 
 ```sh
 # Lists all available flags and usage instructions
-curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" | bash -s -- help
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/setup.sh" | bash -s -- help
 ```
 
 **Download and inspect the script before running it:**
 
 ```sh
-curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/config/setup.sh" -o setup.sh
+curl -fsSL "https://raw.githubusercontent.com/martinjnilsen/configs/main/obsidian/setup.sh" -o setup.sh
 # Review setup.sh, then run with any flags:
 bash setup.sh             # normal run
 bash setup.sh --dry-run   # preview only

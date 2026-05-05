@@ -19,8 +19,8 @@ jq_inplace() {
 
 # ── obsidian ──────────────────────────────────────────────────────────────────
 
-if is_staged "obsidian/workspace.json"; then
-  jq_inplace "$REPO_ROOT/obsidian/workspace.json" '
+if is_staged "obsidian/.obsidian/workspace.json"; then
+  jq_inplace "$REPO_ROOT/obsidian/.obsidian/workspace.json" '
     .lastOpenFiles = []
     | .active = null
     | walk(
@@ -33,6 +33,6 @@ if is_staged "obsidian/workspace.json"; then
         else . end
       )
   '
-  git add "$REPO_ROOT/obsidian/workspace.json"
-  echo "pre-commit: cleaned obsidian/workspace.json (.lastOpenFiles, .active, leaf file refs, tabs children)"
+  git add "$REPO_ROOT/obsidian/.obsidian/workspace.json"
+  echo "pre-commit: cleaned obsidian/.obsidian/workspace.json (.lastOpenFiles, .active, leaf file refs, tabs children)"
 fi

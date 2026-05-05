@@ -1,10 +1,10 @@
 {
   "main": {
-    "id": "b94e05ea069e52e4",
+    "id": "3dce3afc54db442a",
     "type": "split",
     "children": [
       {
-        "id": "e62daec11d037276",
+        "id": "b938a934a9c16db3",
         "type": "tabs",
         "children": []
       }
@@ -12,46 +12,49 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "031a1e95290927ee",
+    "id": "4798b6d41d6f66d8",
     "type": "split",
     "children": [
       {
-        "id": "54d7fda0fa1c25ec",
+        "id": "4f08d7c022e12cd2",
         "type": "tabs",
         "children": []
       }
     ],
     "direction": "horizontal",
-    "width": 236.5
+    "width": 300
   },
   "right": {
-    "id": "ce863714f81dfb9e",
+    "id": "da67e616c94dcb62",
     "type": "split",
     "children": [
       {
-        "id": "149fe2da253a1679",
+        "id": "53aba0fa1da2ce80",
         "type": "tabs",
         "children": [],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
       "zk-prefixer:Create new unique note": false,
-      "canvas:Create new canvas": false,
-      "bases:Create new base": false,
+      "random-note:Open random note": false,
+      "audio-recorder:Start/stop recording": false,
+      "workspaces:Manage workspace layouts": false,
+      "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "audio-recorder:Start/stop recording": false,
-      "random-note:Open random note": false,
-      "workspaces:Manage workspace layouts": false,
-      "hide-folders:Show hidden folders": false
+      "bases:Create new base": false,
+      "hide-folders:Show hidden folders": false,
+      "obsidian-importer:Open Importer": false,
+      "templater-obsidian:Templater": false
     }
   },
   "active": null,
