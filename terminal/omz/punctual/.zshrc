@@ -76,7 +76,7 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  # bundled
+  # bundled (already inside ~/.oh-my-zsh/plugins, nothing to clone)
   command-not-found
   copypath
   copyfile
@@ -85,22 +85,22 @@ plugins=(
   git
   sudo
   fzf
-  # custom / external
+  zoxide
+  # external (must be cloned into custom/plugins)
   zsh-autosuggestions
   zsh-syntax-highlighting
-  #ohmyzsh-full-autoupdate
 )
 
 # Plugin configs
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 export PATH="$HOME/.local/bin:$PATH"
-export FZF_BASE=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf/
+export FZF_BASE=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/fzf   # Where fzf was cloned
 export FZF_DEFAULT_COMMAND="find . \( -name node_modules -o -name .git -o -name .venv \) -prune -o -print" # Hide Node modules, git or Python venv files
 export FZF_DEFAULT_OPTS="--height=40% --layout=reverse" # Set height and reversed layout (selector below)
 ZOXIDE_CMD_OVERRIDE="cd" # Override default cd behavior
-DISABLE_FZF_AUTO_COMPLETION="false" # Enable autocompletion
-DISABLE_FZF_KEY_BINDINGS="false" # Enable key bindings
+DISABLE_FZF_AUTO_COMPLETION="false" # Default: autocompletion enabled
+DISABLE_FZF_KEY_BINDINGS="false"    # Default: key bindings enabled
 
 # Source changes
 source $ZSH/oh-my-zsh.sh
@@ -172,8 +172,8 @@ PUNCTUAL_GIT_SYMBOL_DIVERGED="~"
 #############
 
 # Homebrew
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=/opt/homebrew/sbin:$PATH
+# export PATH=/opt/homebrew/bin:$PATH
+# export PATH=/opt/homebrew/sbin:$PATH
 
-# Tailscale
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+# Tailscale:
+# alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
